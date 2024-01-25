@@ -31,11 +31,13 @@ body {
 .Computer {
   display: flex;
   flex-direction: column;
+  border: 5px dashed red;
 }
 
 .Player {
   display: flex;
   flex-direction: column;
+  border: 5px dashed blue;
 }
 
 .vs {
@@ -47,6 +49,7 @@ body {
 .middle {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .selected {
@@ -55,4 +58,19 @@ body {
 
 .selectedComputer {
   border: 5px solid red;
+}
+
+.PlayerName {
+  align-self: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.result {
+  font-size: 18px;
+}
+
+.actionButton {
+  margin: 30px 0px 0px 0px;
+  width: 480px;
 }

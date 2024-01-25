@@ -3,6 +3,7 @@ const symbols = ["Paper", "Rock", "Scissor"];
 let playerScore = 0;
 let computerScore = 0;
 const scoreToWin = 1;
+let gameState = 0;
 
 /* Select Elements */
 let playerOptions = document.querySelectorAll(".playerOption");
@@ -10,66 +11,57 @@ let selection = document.querySelector(".selection");
 let rockComputer = document.querySelector(".rockComputer");
 let paperComputer = document.querySelector(".paperComputer");
 let scissorComputer = document.querySelector(".scissorComputer");
-let result = document.querySelector(".result");
+let resultMessage = document.querySelector(".resultMessage");
 let computerScoreDOM = document.querySelector(".computerScore");
 let playerScoreDOM = document.querySelector(".playerSore");
+let actionButton = document.querySelector(".actionButton");
 
 /* Logic */
 for (let b of playerOptions) {
   b.addEventListener("mouseover", () => {
-    b.classList.add("selected");
-    let text = b.classList.contains("rock")
-      ? "Rock"
-      : b.classList.contains("paper")
-      ? "Paper"
-      : "Scissor";
-    selection.innerHTML = text;
+    if (gameState == 1) {
+      b.classList.add("selected");
+      let text = b.classList.contains("rock")
+        ? "Rock"
+        : b.classList.contains("paper")
+        ? "Paper"
+        : "Scissor";
+      selection.innerHTML = text;
+    }
   });
 
   b.addEventListener("mouseout", () => {
-    b.classList.remove("selected");
-    selection.innerHTML = "?";
+    if (gameState == 1) {
+      b.classList.remove("selected");
+      selection.innerHTML = "?";
+    }
   });
 
   b.addEventListener("click", () => {
-    let text = b.classList.contains("rock")
-      ? "Rock"
-      : b.classList.contains("paper")
-      ? "Paper"
-      : "Scissor";
-    selection.innerHTML = text;
-    alert(`You have selected ${text}`);
-    let computerChoice = getComputerChoice();
-    alert(`The Computer has selected ${computerChoice}`);
-    result = evaluateSelections(computerChoice, text);
-    alert(result);
-    updateUI(result);
+    if (gameState == 1) {
+      let text = b.classList.contains("rock")
+        ? "Rock"
+        : b.classList.contains("paper")
+        ? "Paper"
+        : "Scissor";
+      selection.innerHTML = text;
+      alert(`You have selected ${text}`);
+      let computerChoice = getComputerChoice();
+      alert(`The Computer has selected ${computerChoice}`);
+      result = evaluateSelections(computerChoice, text);
+      alert(result);
+      updateUI(result);
+    }
   });
 }
 
 /* computer choice */
 const getComputerChoice = () => {
   let choice = Math.floor(Math.random() * 3);
-  /*
-  switch (choice) {
-    case 0:
-      rockComputer.classList.add("selectedComputer");
-      break;
-    case 1:
-      paperComputer.classList.add("selectedComputer");
-      break;
-    case 2:
-      scissorComputer.classList.add("selectedComputer");
-      break;
-    default:
-      console.log("unexpected");
-  }
-  */
   return symbols[choice];
 };
 
 /*Evaluate Choice */
-
 const evaluateSelections = (computerSelection, playerSelection) => {
   let result = "";
   computerSelectionNew = computerSelection.toLowerCase();
@@ -86,8 +78,6 @@ const evaluateSelections = (computerSelection, playerSelection) => {
     computerScore++;
   }
 
-  // Player wins
-  // Computer wins
   if (
     (playerSelectionNew === "scissor" && computerSelectionNew === "paper") ||
     (playerSelectionNew === "paper" && computerSelectionNew === "rock") ||
@@ -95,37 +85,55 @@ const evaluateSelections = (computerSelection, playerSelection) => {
   ) {
     result = `You Win! ${playerSelection} beats ${computerSelection}`;
     playerScore++;
-    //result = `player`;
   }
 
   // Tie
   if (playerSelectionNew === computerSelectionNew) {
     result = `Tie`;
   }
-
-  console.log(result);
-
   return result;
 };
 
-/* */
-
 const updateUI = (result) => {
-  playerScoreDOM.innerHTML = "1";
-  console.log("hello");
+  playerScoreDOM.innerHTML = playerScore;
+  computerScoreDOM.innerHTML = computerScore;
   if (playerScore == scoreToWin) {
-    result.innerHTML = "You have won the game";
-    playerScoreDOM.innerHTML = 0;
-    computerScoreDOM.innerHTML = 0;
+    resetGame("You have won the game");
   } else if (computerScore == scoreToWin) {
-    result.innerHTML = "You have lost the game";
+    resetGame("You have lost the game");
+  }
+};
+
+actionButton.addEventListener("click", () => {
+  if (gameState == 0) {
+    gameState = 1;
+    actionButton.innerHTML = "Stop Game";
+    resultMessage.innerHTML = "Game is running";
+  } else if (gameState == 1) {
+    gameState = 0;
+    actionButton.innerHTML = "Start Game";
+    resultMessage.innerHTML = "Game is paused";
+  } else {
+    gameState = 1;
     playerScoreDOM.innerHTML = 0;
     computerScoreDOM.innerHTML = 0;
-  } else {
-    playerScoreDOM.innerHTML = playerScore;
-    computerScoreDOM.innerHTML = computerScore;
-    //rockComputer.classList.remove("selectedComputer");
-    //paperComputer.classList.remove("selectedComputer");
-    //scissorComputer.classList.remove("selectedComputer");
+    computerScore = 0;
+    playerScore = 0;
+  }
+});
+
+const resetGame = (message) => {
+  //result.innerHTML = "You have lost the game";
+  resultMessage.innerHTML = message;
+  gameState = 2;
+  actionButton.innerHTML = "Play again";
+  resetPlayerSelections();
+};
+
+const resetPlayerSelections = () => {
+  for (let a of playerOptions) {
+    if (a.classList.contains("selected")) {
+      a.classList.remove("selected");
+    }
   }
 };

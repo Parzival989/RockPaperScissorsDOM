@@ -9,9 +9,11 @@
   <body>
     <div class="overallLayout">
       <h1 class="test">Scissor, Paper, Rock</h1>
+      <p class="resultMessage">Make your choice</p>
       <div>
         <div class="GameBoard">
           <div class="Player">
+            <p class="PlayerName">You</p>
             <p class="vs playerSore">0</p>
             <div class="currentSelection">
               <img
@@ -33,12 +35,11 @@
             <p class="vs selection">?</p>
           </div>
           <div class="middle">
-            <p class="vs">:</p>
             <p class="vs">vs</p>
-            <p class="vs"></p>
           </div>
 
           <div class="Computer">
+            <p class="PlayerName">Computer</p>
             <p class="vs computerScore">0</p>
             <div>
               <img
@@ -62,8 +63,8 @@
         </div>
       </div>
 
-      <div class="Result">
-        <p class="result"></p>
+      <div class="Button">
+        <button class="actionButton" type="button">Start game</button>
       </div>
     </div>
 
