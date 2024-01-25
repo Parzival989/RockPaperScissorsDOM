@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="./style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="overallLayout">
+      <h1 class="test">Scissor, Paper, Rock</h1>
+      <div>
+        <div class="GameBoard">
+          <div class="Player">
+            <p class="vs playerSore">0</p>
+            <div class="currentSelection">
+              <img
+                class="image playerOption paper"
+                src="./images/Paper.png"
+                alt="Paper"
+              />
+              <img
+                class="image playerOption rock"
+                src="./images/Rock.png"
+                alt="Rock"
+              />
+              <img
+                class="image playerOption scissor"
+                src="./images/Scissor.png"
+                alt="Scissor"
+              />
+            </div>
+            <p class="vs selection">?</p>
+          </div>
+          <div class="middle">
+            <p class="vs">:</p>
+            <p class="vs">vs</p>
+            <p class="vs"></p>
+          </div>
+
+          <div class="Computer">
+            <p class="vs computerScore">0</p>
+            <div>
+              <img
+                class="image paperComputer"
+                src="./images/Paper.png"
+                alt="Paper"
+              />
+              <img
+                class="image rockComputer"
+                src="./images/Rock.png"
+                alt="Rock"
+              />
+              <img
+                class="image scissorComputer"
+                src="./images/Scissor.png"
+                alt="Scissor"
+              />
+            </div>
+            <p class="vs">?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="Result">
+        <p class="result"></p>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
